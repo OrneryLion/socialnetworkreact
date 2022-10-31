@@ -1,69 +1,82 @@
-import React from "react";
+import React, {useState} from "react";
+import './Login.css';
+import axios from 'axios';
 
 function Login(){
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    
+    const url = `https://localhost:7249/api/Registration/Login`;
+    const data = {
+      
+      Email: email,
+      Password: password,
+      
+    }
+
+    axios.post(url, data)
+    .then((result) => {
+      
+      const dt = result.data;
+      alert(dt.statusMessage)
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+}
+
+
     return(
-        <div class="grid-container">
-            <div class="grid-container-inner">
-            <div class="row m-4">
-    <div class="col ">
-    <form>
-  {/* <!-- Email input --> */}
-  <div class="form-outline mb-4">
-    <input type="email" id="form2Example1" class="form-control" />
-    <label class="form-label" for="form2Example1">Email address</label>
-  </div>
+      // <!-- Section: Design Block -->
+      <section className="text-center text-lg-start">
+        {/* <!-- Jumbotron --> */}
+        <div className="container py-4">
+          <div className="row g-0 align-items-center">
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <div className="card cascading-right login-card" >
+                <div className="card-body p-5 shadow-5 text-center">
+                  <h2 className="fw-bold mb-5">Login</h2>
+                  <form>
+      
+                    {/* <!-- Email input --> */}
+                    <div className="form-outline mb-4">
+                      <input type="email" id="form3Example3" className="form-control" 
+                      onChange={(e) => setEmail(e.target.value)}/>
+                      <label className="form-label" htmlFor="form3Example3">Email address</label>
+                    </div>
+      
+                    {/* <!-- Password input --> */}
+                    <div className="form-outline mb-4">
+                      <input type="password" id="form3Example4" className="form-control" 
+                      onChange={(e) => setPassword(e.target.value)}/>
+                      <label className="form-label" htmlFor="form3Example4">Password</label>
+                    </div>
+      
+      
+                    {/* <!-- Submit button --> */}
+                    <button type="submit" className="btn btn-primary btn-block mb-4"
+                    onClick={(e)=> handleLogin(e)}>
+                      Login
+                    </button>
 
-  {/* <!-- Password input --> */}
-  <div class="form-outline mb-4">
-    <input type="password" id="form2Example2" class="form-control" />
-    <label class="form-label" for="form2Example2">Password</label>
-  </div>
-
-  {/* <!-- 2 column grid layout for inline styling --> */}
-  <div class="row mb-4">
-    <div class="col d-flex justify-content-center">
-      {/* <!-- Checkbox --> */}
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="form2Example34" checked />
-        <label class="form-check-label" for="form2Example34"> Remember me </label>
-      </div>
-    </div>
-
-    <div class="col">
-      {/* <!-- Simple link --> */}
-      <a href="#!">Forgot password?</a>
-    </div>
-  </div>
-
-  {/* <!-- Submit button --> */}
-  <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
-
-  {/* <!-- Register buttons --> */}
-  <div class="text-center">
-    <p>Not a member? <a href="#!">Register</a></p>
-    <p>or sign up with:</p>
-    <button type="button" class="btn btn-primary btn-floating mx-1">
-      <i class="fab fa-facebook-f"></i>
-    </button>
-
-    <button type="button" class="btn btn-primary btn-floating mx-1">
-      <i class="fab fa-google"></i>
-    </button>
-
-    <button type="button" class="btn btn-primary btn-floating mx-1">
-      <i class="fab fa-twitter"></i>
-    </button>
-
-    <button type="button" class="btn btn-primary btn-floating mx-1">
-      <i class="fab fa-github"></i>
-    </button>
-  </div>
-</form>
-    </div>
-</div>
+                  </form>
+                </div>
+              </div>
             </div>
+      
+            <div className="col-lg-6 mb-5 mb-lg-0">
+              <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg" className="w-100 rounded-4 shadow-4"
+                alt="" />
+            </div>
+          </div>
         </div>
-
+        {/* <!-- Jumbotron --> */}
+      </section>
+      // <!-- Section: Design Block -->
     )
 }
 

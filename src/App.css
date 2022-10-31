@@ -70,4 +70,5 @@
   .registration-pic {
     border-top-left-radius: .25rem; 
     border-bottom-left-radius: .25rem;
+    max-height:700px;
   }

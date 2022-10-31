@@ -1,75 +1,125 @@
-import React from 'react';
+import React , {useState} from 'react';
+import axios from "axios";
 
 function Register(){
+
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [phoneNo, setPhoneNo] = useState('')
+
+    const handleSave = (e) => {
+        e.preventDefault();
+        console.log(name,email,password,phoneNo)
+        const url = 'https://localhost:7249/api/Registration/Registration';
+        const data = {
+          Name: name,
+          Email: email,
+          Password: password,
+          PhoneNo: phoneNo,
+        }
+
+        axios.post(url, data)
+        .then((result) => {
+          clear();
+          const dt = result.data;
+          alert(dt.statusMessage)
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+    }
+
+    const handleLogin = (e) => {
+        window.location.url = "/login"
+    }
+const clear = () =>{
+  setName('');
+  setEmail('');
+  setPassword('');
+  setPhoneNo('');
+}
+    
 return (
     // sectionbackground
-<section class="h-100 bg-dark">
+<section className="h-100 bg-dark">
     {/* container for registration card */}
-  <div class="container py-5 h-100">
+  <div className="container py-5 h-100">
     {/* create row the entire height of container align and justify to center */}
-    <div class="row d-flex justify-content-center align-items-center h-100">
+    <div className="row d-flex justify-content-center align-items-center h-100">
         {/* create column with no restritcions so it takes up entire parent container  */}
-      <div class="col">
+      <div className="col">
         {/* create card */}
-        <div class="card card-registration my-4">
+        <div className="card card-registration my-4">
             {/* on card create row */}
-          <div class="row g-0">
+          <div className="row g-0">
             {/* create two columns unless below screen size xl*/}
-            <div class="col-xl-6 d-none d-xl-block">
+            <div className="col-xl-6 d-none d-xl-block">
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img4.webp"
-                alt="Sample photo" class="img-fluid registration-pic"
+                alt="Sample photo" className="img-fluid registration-pic"
                 />
             </div>
             {/* create column that take up half of grid width for registration info*/}
-            <div class="col-xl-6">
+            <div id='form' className="col-xl-6">
                 {/* create info card */}
-              <div class="card-body p-md-5 text-black">
+              <div className="card-body p-md-5 text-black">
                 {/* create heading */}
-                <h3 class="mb-5 text-uppercase">Registration form</h3>
+                <h3 className="mb-5 text-uppercase">Registration form</h3>
 
                     {/* one column with margin on bottom of 4px*/}
-                  <div class="col-md-6 mb-4">
+                  <div className="col-md-6 mb-4">
                     {/* create form */}
-                    <div class="form-outline">
-                      <input type="text" id="form3Example1m" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Example1m">Name</label>
+                    <div className="form-outline">
+                      <input value={name} type="text" id="Name" className="form-control form-control-lg" 
+                      onChange={(e) => setName(e.target.value)}/>
+                      <label className="form-label" htmlFor="Name">Name</label>
                     </div>
                   </div>
 
                     {/* one column with margin on bottom of 4px*/}
-                    <div class="col-md-6 mb-4">
+                    <div className="col-md-6 mb-4">
                     {/* create form */}
-                    <div class="form-outline">
-                      <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Example1n">Email</label>
+                    <div className="form-outline">
+                      <input value={email} type="text" id="Email" onChange={(e) => setEmail(e.target.value)}
+                       className="form-control form-control-lg" />
+                      <label className="form-label" htmlFor="Email">Email</label>
                     </div>
                   </div>
 
                     {/* one column with margin on bottom of 4px*/}
-                    <div class="col-md-6 mb-4">
+                    <div className="col-md-6 mb-4">
                     {/* create form */}
-                    <div class="form-outline">
-                      <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Example1n">Phone Number</label>
+                    <div className="form-outline">
+                      <input value={phoneNo} type="text" id="PhoneNo" className="form-control form-control-lg"
+                     
+                      onChange={(e) => setPhoneNo(e.target.value)} />
+                      <label className="form-label" htmlFor="PhoneNo">Phone Number</label>
                     </div>
                   </div>
 
                     {/* one column with margin on bottom of 4px*/}
-                    <div class="col-md-6 mb-4">
+                    <div className="col-md-6 mb-4">
                     {/* create form */}
-                    <div class="form-outline">
-                      <input type="text" id="form3Example1n" class="form-control form-control-lg" />
-                      <label class="form-label" for="form3Example1n">Password</label>
+                    <div className="form-outline">
+                      <input value={password} type="text" id="Password" className="form-control form-control-lg"
+                      
+                      onChange={(e) => setPassword(e.target.value)} />
+                      <label className="form-label" htmlFor="Password">Password</label>
                     </div>
                   </div>
 
 
 
                 {/* flex container that is justified so that it is always at the end with padding on top of 3px */}
-                <div class="d-flex justify-content-end pt-3">
-                  <button type="button" class="btn btn-light btn-lg">Reset all</button>
-                  <button type="button" class="btn btn-warning btn-lg ms-2">Submit form</button>
+                <div className="d-flex justify-content-end pt-3">
+                  <button type="button" className="btn btn-light btn-lg" onClick={clear} >Reset all</button>
+                  <button type="button" className="btn btn-warning btn-lg ms-2"
+                  onClick={(e)=> handleSave(e)}>Submit form</button>
+                                    <button type="button" className="btn btn-warning btn-lg ms-2"
+                  onClick={(e)=> handleLogin(e)}>Login</button>
                 </div>
+                
+
 
               </div>
             </div>
@@ -79,77 +129,7 @@ return (
     </div>
   </div>
 </section>
-//     <div class="grid-container">
-//         <div class="grid-container-inner">
-//             <div class="row m-4">
-//                 <div>
 
-
-//         <form>
-//   {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
-  
-    
-//       <div class="form-outline">
-//         <input type="text" id="form3Example1" class="form-control" />
-//         <label class="form-label" for="form3Example1">First name</label>
-//       </div>
-    
-    
-//       <div class="form-outline">
-//         <input type="text" id="form3Example2" class="form-control" />
-//         <label class="form-label" for="form3Example2">Last name</label>
-//       </div>
-    
-  
-
-//   {/* <!-- Email input --> */}
-//   <div class="form-outline mb-4">
-//     <input type="email" id="form3Example3" class="form-control" />
-//     <label class="form-label" for="form3Example3">Email address</label>
-//   </div>
-
-//   {/* <!-- Password input --> */}
-//   <div class="form-outline mb-4">
-//     <input type="password" id="form3Example4" class="form-control" />
-//     <label class="form-label" for="form3Example4">Password</label>
-//   </div>
-
-//   {/* <!-- Checkbox --> */}
-//   <div class="form-check d-flex justify-content-center mb-4">
-//     <input class="form-check-input me-2" type="checkbox" value="" id="form2Example33" checked />
-//     <label class="form-check-label" for="form2Example33">
-//       Subscribe to our newsletter
-//     </label>
-//   </div>
-
-//   {/* <!-- Submit button --> */}
-//   <button type="submit" class="btn btn-primary btn-block mb-4">Sign up</button>
-
-//   {/* <!-- Register buttons --> */}
-//   <div class="text-center">
-//     <p>or sign up with:</p>
-//     <button type="button" class="btn btn-primary btn-floating mx-1">
-//       <i class="fab fa-facebook-f"></i>
-//     </button>
-
-//     <button type="button" class="btn btn-primary btn-floating mx-1">
-//       <i class="fab fa-google"></i>
-//     </button>
-
-//     <button type="button" class="btn btn-primary btn-floating mx-1">
-//       <i class="fab fa-twitter"></i>
-//     </button>
-
-//     <button type="button" class="btn btn-primary btn-floating mx-1">
-//       <i class="fab fa-github"></i>
-//     </button>
-//   </div>
-// </form>
-//         </div>
-
-//     </div>
-//     </div>
-//             </div>
 
 )
 }
