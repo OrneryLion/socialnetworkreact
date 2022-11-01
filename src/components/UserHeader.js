@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from "react";
 import {useNavigate, Link} from "react-router-dom";
 
 export default function UserHeader(){
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const [username, setUserName] = useState("");
 
@@ -13,7 +13,7 @@ export default function UserHeader(){
     const logout = (e) => {
         e.preventDefault();
         localStorage.removeItem("username");
-        history.push("/");
+        navigate("/");
     };
 
     return (
@@ -47,11 +47,7 @@ export default function UserHeader(){
                                 Add Article 
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link to="/nes" className="nav-link">
-                                News
-                            </Link>
-                        </li>
+                        
                     </ul>
                 </div>
             </nav>

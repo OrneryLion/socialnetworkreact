@@ -31,7 +31,7 @@ function Login(){
           localStorage.setItem("loggedEmail", email);
           localStorage.setItem("username", email );
           if(dt.registration.userType === "STAFF"){
-            navigate({to: "/staffdashboard"});
+            navigate( "/staffdashboard");
           }
           
           else{

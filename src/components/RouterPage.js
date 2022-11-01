@@ -15,9 +15,9 @@ export default function RouterPage(){
     return(
         <Router>
             <Routes>
-                <Route path="/" element={<Login/>}/>
-                <Route path="/Registration" element={<Register/>}/>
-                <Route path="/userDashboard" element={<UserDashboard/>}/>
+                <Route path="/" exact element={<Login/>}/>
+                <Route path="/registration" element={<Register/>}/>
+                <Route path="/userdashboard" element={<UserDashboard/>}/>
                 <Route path="/adminDashboard" element={<AdminDashboard/>}/>
                 <Route path="/registrationlist" element={<RegistrationList/>}/>
                 <Route path="/articlelist" element={<ArticleList/>}/>
