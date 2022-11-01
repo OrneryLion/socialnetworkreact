@@ -1,9 +1,10 @@
 import React, {useState} from "react";
 import './Login.css';
 import axios from 'axios';
+import {useNavigate} from "react-router-dom";
 
 function Login(){
-
+  const navigate = useNavigate();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -17,12 +18,31 @@ function Login(){
       Password: password,
       
     }
-
+    
     axios.post(url, data)
     .then((result) => {
       
       const dt = result.data;
-      alert(dt.statusMessage)
+      if (dt.statusCode === 200) {
+        if(email === "admin" && password === "admin") {
+          localStorage.setItem("username", email);
+          navigate("/admindashboard");
+        } else{
+          localStorage.setItem("loggedEmail", email);
+          localStorage.setItem("username", email );
+          if(dt.registration.userType === "STAFF"){
+            navigate({to: "/staffdashboard"});
+          }
+          
+          else{
+            navigate("/userdashboard");
+          }
+          alert(dt.statusMessage);
+        }
+      }
+      else{
+        alert(dt.statusMessage);
+      }
     })
     .catch((error) => {
       console.log(error);
