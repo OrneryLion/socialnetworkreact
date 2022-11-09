@@ -78,7 +78,7 @@ export default function RegistrationList(){
                         <td><span>{value.email}</span></td>
                         <td><span>{value.phoneNo}</span></td>
                         <td>
-                            {value.IsApproved ===  0 ?
+                            {value.isApproved ===  0 ?
                             <button className="btn btn-primary" onClick={(e) => handleApproved(e, value.id)}>
                                 Mark Approved
                             </button>

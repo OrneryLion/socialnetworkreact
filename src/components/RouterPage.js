@@ -23,7 +23,6 @@ export default function RouterPage(){
                 <Route path="/articlelist" element={<ArticleList/>}/>
                 <Route path="/newslist" element={<NewsList/>}/>
                 <Route path="/stafflist" element={<StaffList/>}/>
-                
             </Routes>
         </Router>
     )
